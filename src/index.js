@@ -1,13 +1,15 @@
 export function captalize(string) {
-    return string.toUpperCase()
+    const firstLetter = string[0].toUpperCase()
+    
+    return firstLetter + string.slice(1)
 }
 
 export function reverseString(string) {
     let reversedString = ""
-    for(let c = string.length; c == 0; c--) {
+    for(let c = string.length - 1; c >= 0; c--) {
         reversedString += string[c]
     }
-    return reverseString
+    return reversedString
 }
 
 export const calculator = {
@@ -26,20 +28,33 @@ export const calculator = {
 }
 
 export function caesarCipher(string) {
-    const alphabet = ["A" , "B" , "C", "D" , "E" , "F", "G" , "H" , "I", "J" , "K" , "L", "M" , "N" , "O", "P" , "Q" , "R", "S" , "T" , "U", "V" , "W" , "X", "Y" , "Z" ]
-    for(let c = 0; c == string.length; c++) {
-        let counter = 0
-        alphabet.forEach(element => {
-            if(counter == 26) {
-                counter = 0
-            }
-            if(element.toLowerCase() == string[c]) {
-                string[c] == alphabet[counter + 1].toLowerCase()
-            }
-            counter++
-        });
+    const alphabet = ["a" , "b" , "c", "d" , "e" , "f", "g" , "h" , "i", "j" , "k" , "l", "m" , "n" , "o", "p" , "q" , "r", "s" , "y" , "u", "v" , "w" , "x", "y" , "z" ]
+    const length = string.length
+    let counter = 0
+    let value = 0
+    let message = []
+    let decodedMessage = ""
+
+    for (let c = 0 ; c <= length -1; c++) {
+        message.push(string[c])
+        
     }
-    return alphabet
+    message.forEach(messageLetter => {
+        if (messageLetter == " ") {
+            decodedMessage += messageLetter
+        } else {
+            alphabet.forEach(element => {
+                if (element == messageLetter) {
+                        decodedMessage += alphabet[counter + 1]
+                }
+                counter++
+                if (counter == 26) {
+                    counter = 0
+                }
+            });
+        }  
+    });
+    return decodedMessage;
 }
 
 export function analyzeArray(array) {
@@ -47,7 +62,6 @@ export function analyzeArray(array) {
         average: 0,
         min: null,
         max: 0,
-        length: array.length
     }
     array.forEach(element => {
         if(element > data.max) {
@@ -61,3 +75,4 @@ export function analyzeArray(array) {
     data.average /= array.length
     return data
 }
+
